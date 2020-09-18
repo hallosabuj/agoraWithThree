@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Basic Communication</title>
+  <link rel="stylesheet" href="./assets/common.css" />
+</head>
+
+<body class="agora-theme">
+  <h5>Basic Communication</h5>
+  <form id="form">
+    <input type="text" placeholder="App ID" name="appID">
+    <input type="text" placeholder="channel" name="channel">
+    <input type="text" placeholder="token" name="token">
+    <div class="row" style="margin: 0">
+      <div class="col s12">
+        <button class="btn btn-raised btn-primary waves-effect waves-light" id="join">JOIN VIDEO</button>
+        <button class="btn btn-raised btn-primary waves-effect waves-light" id="leave">LEAVE VIDEO</button>
+        <button class="btn btn-raised btn-primary waves-effect waves-light" id="share">SHARE SCREEN</button>
+        <button class="btn btn-raised btn-primary waves-effect waves-light" id="unshare">UNSHARE SCREEN</button>
+        <button class="btn btn-raised btn-primary waves-effect waves-light" id="publish">PUBLISH</button>
+        <button class="btn btn-raised btn-primary waves-effect waves-light" id="unpublish">UNPUBLISH</button>
+      </div>
+    </div>
+    <input type="number" placeholder="UID" name="uid">
+    <select name="cameraId" id="cameraId"></select>
+    <select name="microphoneId" id="microphoneId"></select>
+    <select name="cameraResolution" id="cameraResolution"></select> Mode: <input type="radio" class="with-gap" name="mode" value="live" checked />
+    <span>live</span>
+    <input type="radio" class="with-gap" name="mode" value="rtc" />
+    <span>rtc</span>
+    <br> CODEC: <input type="radio" class="with-gap" name="codec" value="h264" checked />
+    <span>h264</span>
+    <input type="radio" class="with-gap" name="codec" value="vp8" />
+    <span>vp8</span>
+    <br>
+  </form>
+  <div class="video-grid" id="video">
+    <div class="video-view">
+      <div id="local_stream" class="video-placeholder"></div>
+      <div id="shared_screen" class="video-placeholder"></div>
+      <div id="local_video_info" class="video-profile hide"></div>
+      <div id="video_autoplay_local" class="autoplay-fallback hide"></div>
+    </div>
+  </div>
+  <script src="vendor/jquery.min.js"></script>
+  <script src="vendor/materialize.min.js"></script>
+  <script src="AgoraRTCSDK-3.2.1.js"></script>
+  <script src="agoraScript.js"></script>
+  <script src="agoraJQuery.js"></script>
+  <script src="js/three.js"></script>
+  <script>
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+
+    //Getting DIV id
+    var video_local = document.querySelector("#video");
+    //Using Web Cam as texture
+    var geometry = new THREE.BoxGeometry(4, 4, 4);
+    var texture = new THREE.VideoTexture(video);
+    var material = new THREE.MeshBasicMaterial({
+      map: texture
+    });
+    var cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    camera.position.z = 5;
+
+
+    //When Resizing the window and updating aspect ratio
+    //If we do not update aspect ration then it will distort geometry
+    window.addEventListener('resize', () => {
+      var width = window.innerWidth;
+      var height = window.innerHeight;
+      renderer.setSize(width, height);
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+    });
+
+    //Update Logic
+    var update = function() {
+      //cube.rotation.x += 0.01;
+      //cube.rotation.y += 0.01;
+    };
+
+    //Draw Scene
+    var render = function() {
+      renderer.render(scene, camera);
+    };
+
+    //Run game loop (update render repeat)
+    var GameLoop = function() {
+      requestAnimationFrame(GameLoop);
+
+      update();
+      render();
+    }
+    GameLoop();
+  </script>
+</body>
+
+</html>
