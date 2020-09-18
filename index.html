@@ -58,16 +58,15 @@
 
     var renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor("grey");
     document.body.appendChild(renderer.domElement);
 
 
-    //Getting DIV id
-    var video_local = document.querySelector("#video");
-    //Using Web Cam as texture
-    var geometry = new THREE.BoxGeometry(4, 4, 4);
-    var texture = new THREE.VideoTexture(video);
+    //Creating Geometry
+    var geometry = new THREE.BoxGeometry(1, 1, 1);
     var material = new THREE.MeshBasicMaterial({
-      map: texture
+      color: 0x00ff00,
+      wireframe: true
     });
     var cube = new THREE.Mesh(geometry, material);
     scene.add(cube);
@@ -87,8 +86,8 @@
 
     //Update Logic
     var update = function() {
-      //cube.rotation.x += 0.01;
-      //cube.rotation.y += 0.01;
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
     };
 
     //Draw Scene
@@ -99,7 +98,6 @@
     //Run game loop (update render repeat)
     var GameLoop = function() {
       requestAnimationFrame(GameLoop);
-
       update();
       render();
     }
