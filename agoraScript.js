@@ -267,7 +267,7 @@ var option = {
     appID: "a8c2de6433de4f97af744dac4fb7ae39",
     channel: "MyChannel",
     uid: null,
-    token: "006a8c2de6433de4f97af744dac4fb7ae39IADawMQF7Abqrszr7sHQwO4x6SvmlVdFe5IW5KwRM4uY4eAS44oAAAAAEAAzuiAF0G5nXwEAAQDMbmdf"
+    token: "006a8c2de6433de4f97af744dac4fb7ae39IACrohuLW3JG+RBf2LJSOI6I++1HkRyEpM00s0BrgehZSOAS44oAAAAAEAAzuiAF8IxpXwEAAQDwjGlf"
 }
 
 function join(rtc, option) {

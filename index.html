@@ -14,7 +14,7 @@
     <form id="form">
         <input type="text" placeholder="App ID" name="appID" value="a8c2de6433de4f97af744dac4fb7ae39">
         <input type="text" placeholder="channel" name="channel" value="MyChannel">
-        <input type="text" placeholder="token" name="token" value="006a8c2de6433de4f97af744dac4fb7ae39IADawMQF7Abqrszr7sHQwO4x6SvmlVdFe5IW5KwRM4uY4eAS44oAAAAAEAAzuiAF0G5nXwEAAQDMbmdf">
+        <input type="text" placeholder="token" name="token" value="006a8c2de6433de4f97af744dac4fb7ae39IACohZ4zb0kPAJKQRtpo/7mzROm2BByx+42FlRCTuGYhk+AS44oAAAAAEAA8TtComuByXwEAAQCa4HJf">
         <div class="row" style="margin: 0">
             <div class="col s12">
                 <button class="btn btn-raised btn-primary waves-effect waves-light" id="join">JOIN VIDEO</button>
@@ -54,10 +54,13 @@
     <script>
         var scene = new THREE.Scene();
         var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.z = 5;
 
-        var renderer = new THREE.WebGLRenderer();
+        var renderer = new THREE.WebGLRenderer({
+            alpha: true
+        });
         renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor("grey");
+        //renderer.setClearColor("grey");
         document.body.appendChild(renderer.domElement);
 
         //========================================================
@@ -73,8 +76,8 @@
         cube.position.x = -4;
         cubes.push(cube);
         scene.add(cube);
+        scene.background = texture;
 
-        camera.position.z = 5;
 
 
         //When Resizing the window and updating aspect ratio
